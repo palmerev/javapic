@@ -1,6 +1,6 @@
 // some vanilla manual tests for checkEmailFormat from join.js
 
-function testCheckEmailFormat() {
+function testValidEmail() {
     var valids = [
             'foo@example.com',
             'x@y.c',
@@ -14,7 +14,7 @@ function testCheckEmailFormat() {
         ],
         failures;
 
-    if (valids.filter(checkEmailFormat).length !== valids.length) {
+    if (valids.filter(validEmail).length !== valids.length) {
         failures = valids.filter(function (str, _, arr) {
             return arr.indexOf(str) === -1;
         });
@@ -27,7 +27,7 @@ function testCheckEmailFormat() {
         console.log('tests on valid emails pass');
     }
 
-    if (invalids.filter(checkEmailFormat).length !== 0) {
+    if (invalids.filter(validEmail).length !== 0) {
         failures = invalids.filter(function (str, _, arr) {
             return arr.indexOf(str) === -1;
         });

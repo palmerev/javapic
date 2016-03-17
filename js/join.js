@@ -8,7 +8,7 @@ function isBlank(el) {
     return el.value === null || el.value === "";
 }
 
-function checkEmailFormat(email) {
+function validEmail(email) {
     var pattern = /^[^@]+@[^@]+\.[A-Za-z]+$/;
     return pattern.test(email);
 }

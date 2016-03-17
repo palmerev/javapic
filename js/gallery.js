@@ -14,14 +14,31 @@ function createImageNodes() {
     return nodeList;
 }
 
+function showLightbox(event) {
+    if (!event.target.src) { return; } // not an image
+    var image, box = document.getElementById('image_show');
+    image = box.getElementsByTagName('img')[0];
+    image.src = event.target.src;
+    box.className = 'display_img';
+}
+
+function hideLightbox(event) {
+    event.target.className = 'display_none';
+}
+
 function init() {
     var tagline = document.getElementsByClassName('tagline')[0],
         username = window.sessionStorage.getItem('username'),
         gallery = document.getElementById('gallery'),
+        lightbox = document.getElementById('image_show'),
         listImageNodes;
 
+    gallery.addEventListener('click', showLightbox);
+    lightbox.addEventListener('click', hideLightbox);
     // add the stored username to the tagline
-    tagline.textContent += ", " + username;
+    if (username) {
+        tagline.textContent += ", " + username;
+    }
 
     listImageNodes = createImageNodes();
     for (var i = 0; i < listImageNodes.length; i++) {

@@ -13,14 +13,47 @@ function validEmail(email) {
     return pattern.test(email);
 }
 
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function displayErrorMessage(msg, errorField) {
+    // create the error element
+    var elem = document.createElement('p');
+    elem.classList.add('elem-error');
+    // attach the msg
+    elem.textContent = msg;
+    elem.style.color = 'red';
+    // insert it after the errorField
+    insertAfter(elem, errorField);
+}
+
+function clearErrorMessages() {
+    var errors = document.getElementsByClassName('elem-error');
+    while(errors.length > 0) {
+        errors.item(errors.length - 1).remove();
+    }
+}
+
 function validateForm(event) {
-    // validate required fields
     var elems = event.target.elements,
-        isValid = false;
+        isValid = true,
+        emailField = event.target.elements.email,
+        username = event.target.elements.username.value,
+        errorMessage;
+
+    clearErrorMessages();
+    // validate required fields
     for (var i = 0; i < elems.length; i++) {
         if(isRequired(elems[i]) && isBlank(elems[i])) {
-            console.log("missing required field: ", elems[i].name);
+            displayErrorMessage(elems[i].name + ' is required', elems[i]);
+            isValid = false;
         }
+    }
+    // validate email if it isn't already blank
+    if (!isBlank(emailField) && !validEmail(emailField.value)) {
+        displayErrorMessage('email format is invalid', emailField);
+        isValid = false;
     }
     if (!isValid) {
         event.preventDefault();
@@ -28,6 +61,15 @@ function validateForm(event) {
 }
 
 function init() {
+    // polyfill for Node.remove
+    if (!('remove' in Element.prototype)) {
+        Element.prototype.remove = function() {
+            if (this.parentNode) {
+                this.parentNode.removeChild(this);
+            }
+        };
+    }
+
     var form = document.forms[0],
         err;
     form.noValidate = true;

@@ -8,6 +8,11 @@ function isBlank(el) {
     return el.value === null || el.value === "";
 }
 
+function checkEmailFormat(email) {
+    var pattern = /^[^@]+@[^@]+\.[A-Za-z]+$/;
+    return pattern.test(email);
+}
+
 function validateForm(event) {
     // validate required fields
     var elems = event.target.elements,

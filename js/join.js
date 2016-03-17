@@ -58,6 +58,10 @@ function validateForm(event) {
     if (!isValid) {
         event.preventDefault();
     }
+
+    event.target.setAttribute('action', 'gallery.html');
+    // save the username so it can be displayed on the gallery page
+    window.sessionStorage.setItem('username', username);
 }
 
 function init() {

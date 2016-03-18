@@ -1,7 +1,7 @@
 function createImageNodes() {
-    var item, image, pic = '1', nodeList = [];
+    var item, image, pic = 1, nodeList = [];
     // create image filenames
-    while (Number(pic) <= 60) {
+    while (pic <= 60) {
         // append leading zero for 1 - 9
         if(pic < 10) { pic = '0' + pic; }
         item = document.createElement('li');

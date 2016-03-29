@@ -41,6 +41,7 @@ function validateForm(event) {
         emailField = event.target.elements.email,
         username = event.target.elements.username.value,
         errorMessage;
+    event.preventDefault();
 
     clearErrorMessages();
     // validate required fields
@@ -55,13 +56,14 @@ function validateForm(event) {
         displayErrorMessage('email format is invalid', emailField);
         isValid = false;
     }
-    if (!isValid) {
-        event.preventDefault();
-    }
 
     event.target.setAttribute('action', 'gallery.html');
     // save the username so it can be displayed on the gallery page
     window.sessionStorage.setItem('username', username);
+
+    if (isValid) {
+        window.location.href = 'gallery.html';
+    }
 }
 
 function init() {
@@ -77,7 +79,6 @@ function init() {
     var form = document.forms[0],
         err;
     form.noValidate = true;
-    form.method = 'get';
     form.addEventListener('submit', validateForm);
 }
 

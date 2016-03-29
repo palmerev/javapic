@@ -77,6 +77,7 @@ function init() {
     var form = document.forms[0],
         err;
     form.noValidate = true;
+    form.method = 'get';
     form.addEventListener('submit', validateForm);
 }
 
